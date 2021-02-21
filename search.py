@@ -87,12 +87,50 @@ def depthFirstSearch(problem):
     print("Start's successors:", problem.getSuccessors(problem.getStartState()))
     """
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    stack = util.Stack()               
+    stack.push(problem.getStartState())
+    #visited
+    closed = []
+    #array of actions for return                                 
+    result=[]
+                         
+    path=util.Stack()           
+    open = stack.pop()
+    while not problem.isGoalState(open):
+        if open not in closed:
+            closed.append(open)
+            successors = problem.getSuccessors(open)
+            for successor,action,stepCost in successors:
+                stack.push(successor)
+                tmp = result + [action]
+                path.push(tmp)
+        open = stack.pop()
+        result = path.pop()
+    return result
 
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    queue = util.Queue()               
+    queue.push(problem.getStartState())
+    #visited
+    closed = []
+    #farray of actions for return                             
+    result=[]
+                         
+    path=util.Queue()           
+    open = queue.pop()
+    while not problem.isGoalState(open):
+        if open not in closed:
+            closed.append(open)
+            successors = problem.getSuccessors(open)
+            for successor,action,stepCost in successors:
+                queue.push(successor)
+                tmp = result + [action]
+                path.push(tmp)
+        open = queue.pop()
+        result = path.pop()
+    return result
 
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
